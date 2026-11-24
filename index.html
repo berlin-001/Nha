@@ -220,6 +220,8 @@ body{background:#0e1c36;color:var(--cream)}
 .wish-card textarea:focus{border-color:#e7f3ff;box-shadow:0 0 0 3px #a9cbe533}
 .wish-card .privacy-note{font-size:.72rem;text-align:left;color:#b9cfe5;line-height:1.55;margin-top:.8rem}
 .wish-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.wish-actions button[hidden]{display:none!important}
+.wish-actions button:disabled{opacity:.65;cursor:wait}
 .wish-status{margin:1rem 0 0!important;min-height:1.2rem;font-size:.85rem!important;color:#e8f2ff!important}
 .photo-overlay-card{width:min(44rem,100%)}
 .photo-overlay-card h2{margin-bottom:.7rem}
@@ -306,7 +308,7 @@ body{background:#0e1c36;color:var(--cream)}
 <section class="hero">
   <div class="stars" id="stars"></div>
   <div class="hero-copy">
-    <div class="kicker">for neha, on her birthday</div>
+    <div class="kicker">for neha, on her 23rd birthday</div>
     <h1>A moonlit little <em>birthday story</em><span class="tiny-heart">❤</span></h1>
     <p class="hero-sub">You keep asking me why I like you, and maybe I still don't have a one-line answer. So I made something softer than a confession and more personal than a message.</p>
     <div class="carton" id="carton" aria-label="A small cardboard gift box stamped: childish heart inside, handle with care">
@@ -432,7 +434,7 @@ body{background:#0e1c36;color:var(--cream)}
 
 <section class="section end" id="wish">
   <div class="shell">
-    <div class="section-tag">05 / happy birthday, neha</div>
+    <div class="section-tag">05 / happy 23rd birthday, neha</div>
     <h2>May this year feel a little more <em>beautifully yours.</em></h2>
     <p>More lovely surprises. More pets to cuddle. More moonlit peace, spontaneous adventures, and moments that make you smile when you remember them later.</p>
     <p>And if nothing else, I hope this website made you feel special today — because that was the point of it. ♡</p>
@@ -472,10 +474,10 @@ body{background:#0e1c36;color:var(--cream)}
     <p>Close your eyes, think of something you really want, and write it here if you'd like.</p>
     <label class="wish-label" for="wish-input">My birthday wish</label>
     <textarea id="wish-input" maxlength="600" rows="4" placeholder="I wish for…"></textarea>
-    <p class="privacy-note">Private by default: this is saved only in your browser. Nothing is sent to anyone unless you choose to share it.</p>
+    <p class="privacy-note" id="wish-privacy">Choose how to seal your wish. <strong>Seal &amp; send to me</strong> shares your words with the person who made this website, who can read and keep them. <strong>Seal privately</strong> saves them only on your device; I won't receive them.</p>
     <div class="wish-actions">
-      <button id="save-wish" type="button" class="btn">seal my wish ✦</button>
-      <button id="share-wish" type="button" class="btn secondary">share my wish ↗</button>
+      <button id="share-wish" type="button" class="btn">seal &amp; send to me ✦</button>
+      <button id="save-wish" type="button" class="btn secondary">seal privately ☾</button>
     </div>
     <p class="wish-status" id="wish-status" role="status" aria-live="polite"></p>
   </div>
@@ -496,9 +498,10 @@ body{background:#0e1c36;color:var(--cream)}
 <script>
 const BIRTHDAY = new Date('2026-11-25T00:00:00+05:30');
 const BORN_ON = new Date('2003-11-25T00:00:00+05:30');
-// OPTIONAL: paste your Formspree URL here to receive wishes when Neha chooses 'share my wish'.
-// Example: https://formspree.io/f/your-form-id . Leave empty to use the device's share sheet.
-const WISH_FORM_ENDPOINT = '';
+// Neha can choose to share a wish with the person who made the website via Formspree.
+// Private sealing never sends anything to Formspree.
+const WISH_FORM_ENDPOINT = 'https://formspree.io/f/mjywpzjq';
+const FORM_READY = /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(WISH_FORM_ENDPOINT);
 const countLabel = document.getElementById('count-label');
 const countValue = document.getElementById('count-value');
 const countNote = document.getElementById('count-note');
@@ -514,9 +517,9 @@ function updateCountdown(){
   if(untilBirthday > 0){
     const bdays = Math.floor(untilBirthday/86400000);
     const bhours = Math.floor((untilBirthday%86400000)/3600000);
-    countNote.textContent = `and I’ve been waiting to make this birthday special ✦ ${bdays}d ${bhours}h left to go.`;
+    countNote.textContent = `Counting down to your 23rd birthday ✦ ${bdays}d ${bhours}h left, and I wanted to make it special.`;
   } else {
-    countNote.textContent = 'and today I just wanted to make your birthday feel special. ✦';
+    countNote.textContent = '23 years of you — and today I wanted to make this birthday feel special. ✦';
   }
 }
 updateCountdown(); setInterval(updateCountdown,60000);
@@ -623,7 +626,13 @@ $('start-surprise').addEventListener('click',()=>{
 });
 $('wish-btn').addEventListener('click',()=>{
   $('wish-status').textContent='';
-  try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; } catch(e) { $('wish-input').value=''; }
+  // The recipient sharing option is only offered when an actual receiving form exists.
+  $('share-wish').hidden = !FORM_READY;
+  $('wish-privacy').innerHTML = FORM_READY
+    ? 'You have two choices. <strong>Seal &amp; send to me</strong> sends your wish to the person who made this page, who can read and keep it in a private Formspree inbox. <strong>Seal privately</strong> keeps it only on your device, not with me.'
+    : 'Only private sealing is available right now. Your wish is saved in this browser if allowed; it will not be sent to the person who made this website.';
+  try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; }
+  catch(e) { $('wish-input').value=''; }
   showDialog(wishDialog,$('wish-btn'),'wish-input');
 });
 $('wish-close').addEventListener('click',()=>hideDialog(wishDialog));
@@ -637,48 +646,43 @@ document.addEventListener('keydown',event=>{
   }
 });
 function getWish(){return $('wish-input').value.trim();}
+function completeWish(message){
+  hideDialog(wishDialog);
+  $('wish-out').textContent=message;
+  celebrate();
+}
 $('save-wish').addEventListener('click',()=>{
-  const wish = getWish();
-  if(!wish){$('wish-status').textContent='Write a little wish first, or simply close your eyes and make one. ♡';return;}
+  const wish=getWish();
+  if(!wish){$('wish-status').textContent='Write a little wish first, or close your eyes and make one. ♡';return;}
   try {
     localStorage.setItem('neha-birthday-wish',wish);
-    $('wish-status').textContent='Sealed under this moon. Your wish is saved privately in this browser. ♡';
+    completeWish('Your wish is sealed under this moon, privately on your own device. ♡');
   } catch(e) {
-    $('wish-status').textContent='Wish sealed for this moment. Your browser did not allow local saving.';
+    $('wish-status').textContent='Your browser is not allowing private storage. Please enable browser storage or choose another option.';
   }
-  celebrate();
-  $('wish-out').textContent='May that wish find its way to you, one little day at a time. ♡';
 });
 $('share-wish').addEventListener('click', async()=>{
+  if(!FORM_READY){$('wish-status').textContent='Sending has not been configured yet. Seal privately instead.';return;}
   const wish=getWish();
-  if(!wish){$('wish-status').textContent='Write your wish before sharing it. ♡';return;}
-  const text='A birthday wish from Neha: '+wish;
-  // Nothing is transmitted automatically. The visitor has to choose Share.
-  if(WISH_FORM_ENDPOINT){
-    $('wish-status').textContent='Sharing your wish…';
-    try {
-      const response=await fetch(WISH_FORM_ENDPOINT,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({name:'Neha',wish})
-      });
-      if(!response.ok) throw new Error('Request failed');
-      $('wish-status').textContent='Your wish has been shared. ♡';
-    } catch(e) {
-      $('wish-status').textContent='It could not be sent. Your wish is still here; please try again.';
-    }
-    return;
-  }
-  if(navigator.share){
-    try {await navigator.share({title:'A birthday wish ✦',text});$('wish-status').textContent='Your share sheet is closed. ♡';}
-    catch(e){if(e.name!=='AbortError') $('wish-status').textContent='Could not open the share sheet. Try copying it instead.';}
-  } else {
-    try {await navigator.clipboard.writeText(text);$('wish-status').textContent='Copied! Paste it into a message if you decide to share it. ♡';}
-    catch(e){
-      const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';document.body.appendChild(ta);ta.select();
-      const copied=document.execCommand('copy');ta.remove();
-      $('wish-status').textContent=copied?'Copied! Paste it into a message if you decide to share it. ♡':'Select your wish and copy it to share.';
-    }
+  if(!wish){$('wish-status').textContent='Write a little wish first. ♡';return;}
+  const sendBtn=$('share-wish');
+  sendBtn.disabled=true;
+  const originalLabel=sendBtn.textContent;
+  sendBtn.textContent='sealing & sending…';
+  $('wish-status').textContent='Sending your wish to the person who made this page…';
+  try {
+    const response=await fetch(WISH_FORM_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:'Neha',wish,subject:'Neha’s 23rd birthday wish',source:'Neha Moonlit Birthday Website'})
+    });
+    if(!response.ok) throw new Error('Form submission failed');
+    completeWish('Your wish has been sealed and shared with me, just as you chose. Thank you for trusting me with it. ♡');
+  } catch(e) {
+    $('wish-status').textContent='Could not save your wish online. It has not been confirmed as sent. Please try again or seal privately.';
+  } finally {
+    sendBtn.disabled=false;
+    sendBtn.textContent=originalLabel;
   }
 });
 </script>
