@@ -653,16 +653,62 @@ function completeWish(message){
   $('wish-out').textContent=message;
   celebrate();
 }
-$('save-wish').addEventListener('click',()=>{
-  const wish=getWish();
-  if(!wish){$('wish-status').textContent='Write a little wish first, or close your eyes and make one. ♡';return;}
+
+$('share-wish').addEventListener('click', async () => {
+  if (!FORM_READY) {
+    $('wish-status').textContent =
+      'Sending has not been configured yet. Seal privately instead.';
+    return;
+  }
+
+  const wish = getWish();
+
+  if (!wish) {
+    $('wish-status').textContent = 'Write a little wish first. ♡';
+    return;
+  }
+
+  const sendBtn = $('share-wish');
+  sendBtn.disabled = true;
+
+  const originalLabel = sendBtn.textContent;
+  sendBtn.textContent = 'sealing & sending…';
+
+  $('wish-status').textContent =
+    'Sending your wish to Ronit…';
+
   try {
-    localStorage.setItem('neha-birthday-wish',wish);
-    completeWish('Your wish is sealed under this moon, privately on your own device. ♡');
-  } catch(e) {
-    $('wish-status').textContent='Your browser is not allowing private storage. Please enable browser storage or choose another option.';
+    const response = await fetch(WISH_FORM_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Neha',
+        wish,
+        subject: 'Neha’s 23rd birthday wish',
+        source: 'Neha Moonlit Birthday Website'
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Form submission failed');
+    }
+
+    completeWish(
+      'Your wish has been sealed and shared with Ronit. ♡'
+    );
+
+  } catch (e) {
+    $('wish-status').textContent =
+      'Could not send your wish. Please try again or seal privately.';
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = originalLabel;
   }
 });
+
 $('share-wish').addEventListener('click', async()=>{
   if(!FORM_READY){$('wish-status').textContent='Sending has not been configured yet. Seal privately instead.';return;}
   const wish=getWish();
