@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e1730">
+<meta name="description" content="A moonlit birthday surprise for Neha.">
+<title>Neha, under the moon ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#0c1428;--night:#111b35;--deep:#0d1730;--card:#172441;--line:rgba(255,255,255,.12);
+  --cream:#f7ebdd;--muted:#b9c4cf;--gold:#efcfa5;--pink:#eeb2bb;--lake:#19345a;--lake2:#234979;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden}
+a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer} h1,h2,h3,p{margin:0 0 0.9rem}
+::selection{background:#f0cfa5;color:#1b2134}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.1;background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 160 160%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22a%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23a)%22 opacity=%22.55%22/%3E%3C/svg%3E');}
+.topbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.3rem clamp(1.2rem,4vw,4.7rem)}
+.brand{font:500 1.45rem 'Playfair Display',serif;letter-spacing:-.04em}.brand span{color:var(--pink)}
+.topmeta{display:flex;gap:1rem;align-items:center;font-size:.68rem;text-transform:uppercase;letter-spacing:.18em;color:#ebd6be}
+.pill{padding:.8rem 1.1rem;border-radius:999px;border:1px solid rgba(239,207,165,.5);background:rgba(239,207,165,.08);transition:.25s}
+.pill:hover{transform:translateY(-2px);background:rgba(239,207,165,.16)}
+.hero{min-height:100svh;position:relative;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem;padding:7rem clamp(1.35rem,6vw,5.5rem) 3rem;background:
+radial-gradient(circle at 77% 18%, rgba(255,230,185,.11), transparent 14%),
+radial-gradient(circle at 65% 22%, rgba(255,225,180,.08), transparent 28%),
+linear-gradient(180deg,#101932 0%,#0d1730 44%,#0d162a 100%);overflow:hidden}
+.hero:before{content:'';position:absolute;inset:auto auto -18rem -10rem;width:34rem;height:34rem;border:1px solid rgba(239,207,165,.17);border-radius:50%;box-shadow:0 0 0 4rem rgba(239,207,165,.03),0 0 0 10rem rgba(239,207,165,.02)}
+.stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;color:#f6dfbc;opacity:.8;animation:twinkle 4.8s ease-in-out infinite}
+.hero-copy{position:relative;z-index:2;max-width:42rem}
+.kicker{display:flex;align-items:center;gap:.8rem;color:var(--gold);text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;font-weight:700}
+.kicker:before{content:'';display:block;width:2.6rem;height:1px;background:var(--gold)}
+.hero h1{font:500 clamp(3.8rem,8vw,8.6rem)/.96 'Playfair Display',serif;letter-spacing:-.08em;margin:1.2rem 0 1rem}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero h1 .tiny-heart{font-size:.32em;color:var(--pink);vertical-align:top;display:inline-block;transform:rotate(12deg);margin-left:.2rem}
+.hero-sub{color:#c6ced8;line-height:1.85;max-width:28rem;font-size:1rem}
+.hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.8rem}
+.btn{border:none;border-radius:999px;padding:1rem 1.3rem;background:var(--gold);color:#1c2237;font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:.22s}
+.btn:hover{transform:translateY(-3px);background:#ffe0b7}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.16);color:var(--cream)}
+.btn.secondary:hover{background:rgba(255,255,255,.08)}
+.countdown{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin-top:2rem;color:#c5d0dd;font-size:.72rem;letter-spacing:.12em}
+.countdown span{color:#b8c4d4;text-transform:uppercase}
+.countdown strong{font:400 1.85rem 'Playfair Display',serif;color:var(--cream);letter-spacing:0;text-transform:none}
+.count-note{font-size:.82rem!important;letter-spacing:.03em!important;text-transform:none!important;color:#dce6f2!important;max-width:23rem;line-height:1.55}
+.scene-wrap{position:relative;min-height:38rem;display:flex;align-items:end;justify-content:center}
+.scene-glow{position:absolute;inset:10% 8% 22%;background:radial-gradient(circle at 50% 25%, rgba(255,233,188,.2), transparent 35%),radial-gradient(circle at 50% 62%, rgba(118,166,255,.08), transparent 45%);filter:blur(4px)}
+.scene{position:relative;width:min(33rem,100%);height:36rem;border-radius:2rem 2rem 2.2rem 2.2rem;background:linear-gradient(180deg,#18274a 0%, #12203d 34%, #10203e 48%, #13335b 49%, #173456 58%, #112544 100%);border:1px solid rgba(255,255,255,.12);overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.42), inset 0 0 0 1px rgba(255,255,255,.06)}
+.scene:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 0 48%, rgba(0,0,0,.2) 48% 100%)}
+.moon{position:absolute;top:4rem;left:50%;transform:translateX(-50%);width:7.2rem;height:7.2rem;border-radius:50%;background:#ffe9be;box-shadow:0 0 30px rgba(255,233,188,.9),0 0 90px rgba(255,233,188,.25)}
+.moon-reflection{position:absolute;top:11rem;left:50%;transform:translateX(-50%);width:10rem;height:11rem;background:linear-gradient(180deg,rgba(255,233,188,.55),rgba(255,233,188,0));clip-path:polygon(46% 0,54% 0,66% 100%,34% 100%);filter:blur(7px);opacity:.55}
+.mountains{position:absolute;left:-3%;right:-3%;top:9.8rem;height:9rem;background:linear-gradient(180deg,#1c2947,#14203a);clip-path:polygon(0 73%,8% 58%,18% 67%,30% 44%,40% 63%,51% 41%,61% 60%,74% 50%,85% 68%,100% 56%,100% 100%,0 100%)}
+.lake{position:absolute;left:0;right:0;bottom:0;height:54%;background:linear-gradient(180deg,#20466f 0%,#19365b 20%,#173051 42%,#112645 75%,#0f1f39 100%)}
+.ripple{position:absolute;left:50%;transform:translateX(-50%);height:2px;border-radius:999px;background:rgba(255,245,220,.4);filter:blur(.3px)}
+.shore{position:absolute;left:0;right:0;bottom:9.3rem;height:3.2rem;background:linear-gradient(180deg,#152844,#0d1930);clip-path:polygon(0 64%,9% 57%,16% 64%,30% 54%,42% 61%,56% 49%,68% 61%,81% 55%,100% 66%,100% 100%,0 100%)}
+.grass{position:absolute;left:-2%;right:-2%;bottom:0;height:13rem;background:linear-gradient(180deg,#132136,#0a1222)}
+.grass:before{content:'';position:absolute;left:0;right:0;top:-2.6rem;height:5rem;background:linear-gradient(180deg,transparent,#0d1830 58%,#08111f);clip-path:polygon(0 100%,2% 72%,5% 100%,8% 64%,12% 100%,15% 54%,19% 100%,22% 70%,27% 100%,31% 50%,34% 100%,39% 61%,44% 100%,49% 46%,54% 100%,58% 58%,62% 100%,66% 48%,71% 100%,76% 68%,81% 100%,84% 57%,88% 100%,92% 62%,96% 100%,100% 80%,100% 100%)}
+.couple{position:absolute;left:50%;bottom:6.1rem;transform:translateX(-50%);width:14rem;height:12rem;z-index:3}
+.couple .body{position:absolute;background:#0a0f1a;box-shadow:0 0 0 1px rgba(255,255,255,.02)}
+.couple .him-body{width:4.8rem;height:6.8rem;border-radius:2.8rem 2.8rem 1.4rem 1.4rem;left:5.4rem;bottom:1.5rem;transform:rotate(-4deg)}
+.couple .him-head{width:2.45rem;height:2.45rem;border-radius:50%;left:7rem;bottom:7.4rem}
+.couple .her-body{width:4.2rem;height:5.9rem;border-radius:2.3rem 2.3rem 1.2rem 1.2rem;left:3rem;bottom:1.8rem;transform:rotate(12deg)}
+.couple .her-head{width:2.2rem;height:2.2rem;border-radius:50%;left:5.9rem;bottom:7rem;transform:rotate(10deg)}
+.couple .her-hair{position:absolute;width:2.65rem;height:2.65rem;border-radius:50%;left:5.7rem;bottom:6.8rem;background:#090d17;clip-path:ellipse(56% 58% at 46% 45%)}
+.couple .arm{position:absolute;height:.76rem;border-radius:999px;background:#0a0f1a;transform-origin:left center}
+.couple .him-arm{width:4rem;left:7.65rem;bottom:5.9rem;transform:rotate(14deg)}
+.couple .hold-hand{width:3.25rem;left:4.95rem;bottom:4rem;transform:rotate(10deg)}
+.couple .legs{position:absolute;height:.92rem;border-radius:999px;background:#090d17}
+.couple .him-leg1{width:4.5rem;left:7rem;bottom:1.35rem;transform:rotate(15deg)}
+.couple .him-leg2{width:4rem;left:7.2rem;bottom:2rem;transform:rotate(-8deg)}
+.couple .her-leg1{width:3.2rem;left:2.2rem;bottom:1.4rem;transform:rotate(27deg)}
+.couple .her-leg2{width:3rem;left:2.2rem;bottom:2.1rem;transform:rotate(-10deg)}
+.couple .heart-drift{position:absolute;left:10.6rem;bottom:9rem;color:#f4cad0;font-size:1rem;animation:float 4.3s ease-in-out infinite}
+.scene-caption{position:absolute;left:1.25rem;right:1.25rem;bottom:1rem;z-index:5;padding:.85rem 1rem;border-radius:16px;background:rgba(10,17,31,.42);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,.08);font-size:.92rem;line-height:1.6;color:#ecdfd3}
+.section{padding:6.5rem 1.25rem}.shell{max-width:71rem;margin:0 auto}
+.section-tag{color:var(--gold);text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;font-weight:700}
+.section h2{font:400 clamp(2.9rem,5vw,4.8rem)/1.07 'Playfair Display',serif;letter-spacing:-.05em;margin:1rem 0}.section h2 em{color:var(--gold);font-style:normal}.intro{max-width:40rem;color:#c0cad5;line-height:1.8}
+.interests{background:linear-gradient(180deg,#131f39,#16233f);position:relative;overflow:hidden}
+.interests-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:2rem;align-items:center;margin-top:2.4rem}
+.interest-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.interest-buttons button{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1.1rem;min-height:5.2rem;padding:1rem;text-align:left;color:#d0d7de;display:flex;gap:.8rem;align-items:center;transition:.22s}
+.interest-buttons button span{font-size:2rem}.interest-buttons button:hover,.interest-buttons button.active{transform:translateY(-2px);border-color:rgba(239,207,165,.56);background:rgba(239,207,165,.1);color:#f8e7cb}.interest-buttons button:last-child{grid-column:span 2}
+.feature-card{min-height:22rem;background:radial-gradient(circle at 70% 20%, rgba(238,178,187,.16), transparent 30%), linear-gradient(155deg,#203250,#17243f);border-radius:1.6rem;border:1px solid rgba(255,255,255,.1);padding:2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.24)}
+.feature-icon{font-size:5.4rem;animation:float 5s ease-in-out infinite}.feature-card h3{font:400 2rem 'Playfair Display',serif;margin:.8rem 0}.feature-card p{max-width:22rem;color:#c7d1d9;line-height:1.8}
+.trip{background:#f2e3cf;color:#1d2538}.trip .section-tag{color:#956959}.trip h2 em{color:#b67d6b}.trip .intro{color:#6f7581}
+.trip-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;align-items:stretch;margin-top:2.4rem}
+.postcard{background:#fff8ef;border-radius:1.4rem;border:1px dashed #bca489;padding:2rem 2rem 1.5rem;box-shadow:0 18px 48px rgba(87,69,49,.14);position:relative;overflow:hidden}
+.postcard:before{content:'✈';position:absolute;right:1rem;top:.5rem;font-size:5rem;color:rgba(182,125,107,.08);transform:rotate(9deg)}
+.postcard h3{font:400 clamp(2.2rem,4vw,3.7rem)/1.06 'Playfair Display',serif;letter-spacing:-.05em;margin:.6rem 0 1rem}
+.postcard p{max-width:26rem;line-height:1.8;color:#6d7178}
+.stamps{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem}.stamp{border:1px dashed #c2a893;border-radius:999px;padding:.45rem .8rem;font-size:.78rem;color:#775f4c;background:#fff3e4}
+.trip-panel{background:#dbc8b2;border-radius:1.4rem;padding:2rem;display:flex;flex-direction:column;justify-content:center;gap:1.2rem}
+.trip-panel p{line-height:1.8;color:#5d5f66}
+.trip-box{min-height:7.5rem;padding:1.1rem 1.2rem;border-radius:1.1rem;background:#f9f2e8;color:#323949;border:1px solid rgba(0,0,0,.07);display:flex;align-items:center;font:500 1.22rem/1.5 'Playfair Display',serif}
+.btn-dark{background:#202e41;color:#fff8ef;border:none}
+.btn-dark:hover{background:#31465d}
+.reasons{background:linear-gradient(180deg,#121b32,#0d1528)}
+.reason-layout{display:grid;grid-template-columns:.72fr 1.28fr;gap:1.2rem;align-items:start;margin-top:2.4rem}
+.reason-aside{padding:1.6rem;border-radius:1.3rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#d8e0e8;line-height:1.9;position:sticky;top:1rem}
+.reason-aside em{display:block;font:400 1.25rem/1.5 'Playfair Display',serif;color:var(--gold);margin-top:1rem}
+.reason-list{display:grid;gap:.85rem}
+.reason{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:1.15rem;overflow:hidden}
+.reason summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1.15rem 1.2rem;cursor:pointer}
+.reason summary::-webkit-details-marker{display:none}.reason .num{font:400 1.3rem 'Playfair Display',serif;color:var(--gold)}.reason .ttl{font-size:1rem}.reason .plus{font-size:1.25rem;color:#d3bc96;transition:.2s}.reason[open] .plus{transform:rotate(45deg)}.reason .ans{padding:0 1.2rem 1.2rem 3.6rem;color:#c7d0d8;line-height:1.85}
+.poem{position:relative;overflow:hidden;background:linear-gradient(180deg,#162547,#0f1a34)}
+.poem-box{position:relative;z-index:2;max-width:46rem;margin-top:2.2rem;padding:2rem 2rem 1.4rem;background:rgba(11,19,36,.48);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(6px);border-radius:1.6rem;box-shadow:0 25px 80px rgba(0,0,0,.28)}
+.poem-box p{font:400 1.2rem/2.05 'Playfair Display',serif;color:#f4eadc}
+.end{background:radial-gradient(circle at 50% 0%,rgba(239,207,165,.08),transparent 25%),#0d1427;text-align:center}
+.end p{max-width:37rem;margin:0.2rem auto 1rem;line-height:1.9;color:#c5cfda}
+.end-note{margin-top:1.2rem;color:#eec7ce}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#9dabba;background:#0a1121}
+.confetti{position:fixed;top:-5vh;left:var(--left);width:.55rem;height:1rem;background:var(--color);z-index:50;border-radius:.1rem;animation:fall var(--fall) linear forwards;transform:rotate(var(--turn))}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:0}}
+@media (max-width: 950px){
+  .hero,.interests-grid,.trip-layout,.reason-layout{grid-template-columns:1fr}
+  .hero{padding-top:6.7rem}
+  .scene-wrap{min-height:31rem}
+  .scene{height:30rem}
+  .reason-aside{position:static}
+}
+@media (max-width: 640px){
+  .topbar{padding:1rem 1rem}
+  .topmeta .pill{display:none}
+  .hero h1{font-size:3.4rem}
+  .scene{height:26.5rem;border-radius:1.6rem}
+  .moon{width:5.8rem;height:5.8rem;top:3rem}
+  .couple{transform:translateX(-50%) scale(.88);bottom:5.2rem}
+  .scene-caption{font-size:.83rem}
+  .section{padding:5.2rem 1rem}
+  .section h2{font-size:2.55rem}
+  .interest-buttons{grid-template-columns:1fr}
+  .interest-buttons button:last-child{grid-column:auto}
+  .poem-box{padding:1.35rem}
+  .poem-box p{font-size:1.04rem;line-height:1.9}
+  .footer{flex-direction:column;text-align:center}
+}
+
+/* VERSION 4 — silver-blue moonlight palette throughout */
+:root{--bg:#0d1830;--night:#122443;--deep:#122443;--card:#1d3555;--cream:#f2f5ff;--muted:#b9cbe1;--gold:#d6e9ff;--pink:#d8c4ec;--lake:#1e4774;--lake2:#35648a}
+body{background:#0e1c36;color:var(--cream)}
+.hero{background:radial-gradient(circle at 74% 18%,rgba(194,224,255,.16),transparent 26%),linear-gradient(180deg,#142746 0%,#122543 56%,#182f4f 100%)}
+.hero:before{border-color:rgba(196,221,252,.17);box-shadow:0 0 0 4rem rgba(189,214,243,.03),0 0 0 10rem rgba(192,215,241,.03)}
+.kicker,.section-tag{color:#d5e6ff}.kicker:before{background:#d5e6ff}.brand span{color:#dfd0ed}
+.hero h1 em,.section h2 em{color:#daebff}.topmeta{color:#cadbef}
+.hero-sub,.intro,.feature-card p,.end p{color:#d0daea}
+.btn{background:#d9eafd;color:#1a2c49;box-shadow:0 7px 22px rgba(153,192,236,.18)}.btn:hover{background:#eff6ff}
+.btn.secondary{background:rgba(205,230,255,.065);border-color:rgba(209,228,255,.28);box-shadow:none;color:#e4efff}
+.btn.secondary:hover{background:rgba(205,230,255,.14)}
+.interests{background:linear-gradient(180deg,#1a3455 0%,#172d4c 100%)}
+.feature-card{background:radial-gradient(circle at 65% 17%,rgba(193,219,255,.18),transparent 44%),linear-gradient(140deg,#315477,#1d3759);border-color:rgba(208,232,255,.22)}
+.interest-buttons button{background:rgba(220,238,255,.05);border-color:rgba(205,229,255,.17);color:#e1e8f4}
+.interest-buttons button:hover,.interest-buttons button.active{background:rgba(203,223,250,.13);border-color:rgba(216,234,255,.6);color:#fff}
+.trip{background:linear-gradient(165deg,#203f61 0%,#152c4b 100%);color:#f2f6fe}
+.trip .section-tag,.trip .postcard .section-tag{color:#cbdeef}
+.trip h2 em,.trip .intro{color:#d4e7fd}
+.postcard{background:linear-gradient(135deg,#304f70,#294663);border:1px solid rgba(201,227,255,.3);box-shadow:0 20px 48px rgba(5,16,35,.23)}
+.postcard:before{color:rgba(219,233,255,.15)}
+.postcard h3,.postcard h3 em{color:#f5f8ff}
+.postcard p,.trip-panel p{color:#d5e1ef}
+.stamp{color:#e1efff;background:rgba(210,234,255,.09);border-color:#a4c7e47d}
+.trip-panel{background:rgba(126,167,210,.18);border:1px solid rgba(209,229,249,.19)}
+.trip-box{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.6rem;background:#122b4b;color:#f5faff;border-color:#9ab9d344;min-height:13rem}
+.trip-caption{font:700 .65rem 'DM Sans',sans-serif;letter-spacing:.19em;color:#bdd6f1}
+.trip-box strong{font:400 clamp(1.8rem,2.6vw,2.5rem)/1.15 'Playfair Display',serif;letter-spacing:-.025em;color:#eef7ff}
+.trip-desc{font:400 .94rem/1.6 'DM Sans',sans-serif;color:#c7d8e9}
+.trip-map{font:700 .75rem 'DM Sans',sans-serif;letter-spacing:.04em;color:#cfe6ff;border-bottom:1px solid #cfe6ff55;padding-bottom:.18rem;margin-top:.25rem}
+.trip-map[hidden]{display:none}
+.btn-dark{color:#1e314f;background:#d5e8ff}.btn-dark:hover{background:#f0f6ff}
+.reasons{background:linear-gradient(180deg,#172e50 0%,#132643 100%)}
+.reason-aside,.reason{background:rgba(217,235,255,.065);border-color:rgba(218,237,255,.16)}
+.reason .num,.reason-aside em,.reason .plus{color:#d9eafc}
+.reason .ans{color:#d7e2f0}
+.poem{background:radial-gradient(circle at 76% 10%,rgba(213,233,255,.12),transparent 25%),linear-gradient(180deg,#223d61 0%,#1b3456 100%)}
+.poem-box{background:rgba(13,30,53,.58);border-color:rgba(222,238,255,.22);box-shadow:0 24px 75px rgba(4,12,28,.3);border-left:3px solid rgba(222,239,255,.5)}
+.poem-box .poem-exact{white-space:pre-line;color:#edf4ff;font:400 clamp(1.05rem,1.75vw,1.35rem)/1.95 'Playfair Display',Georgia,serif;margin:0}
+.poem-footer{color:#c9dff6;font:.78rem 'DM Sans',sans-serif;letter-spacing:.13em;margin-top:1.2rem}
+.end{background:radial-gradient(ellipse at 50% 0%,rgba(193,219,253,.14),transparent 35%),linear-gradient(180deg,#1a3658,#142744)}
+.end-note{color:#e1d3eb}.footer{background:#10223c;color:#bacce1;border-color:rgba(223,237,255,.14)}
+.scene{background:linear-gradient(180deg,#253c66 0%,#1c3558 45%,#1b406b 49%,#1c3b60 60%,#142943 100%);box-shadow:0 30px 90px rgba(0,0,0,.3),inset 0 0 0 1px #dcecff13}
+.moon{background:#f2f6ff;box-shadow:0 0 35px rgba(210,231,255,.85),0 0 100px rgba(195,218,255,.32)}
+.moon-reflection{background:linear-gradient(180deg,rgba(221,238,255,.59),rgba(215,235,255,0))}
+.mountains{background:linear-gradient(180deg,#253b60,#1b304e)}
+.lake{background:linear-gradient(180deg,#2d537c 0%,#21446e 25%,#1b3a60 60%,#152c49 100%)}
+.ripple{background:rgba(232,243,255,.58)}
+.scene-caption{color:#eaf2ff;background:rgba(12,26,46,.68)}
+/* Vintage cardboard parcel with a stamped warning */
+.carton{position:relative;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;margin-top:1.5rem;padding:.8rem .85rem .55rem;width:min(18.2rem,100%);min-height:8.7rem;background:linear-gradient(115deg,#c7a985,#e5cba5 40%,#c6a37d 100%);border:1px solid #916f56;border-radius:.36rem;box-shadow:inset 0 0 0 4px #e7d4b647,5px 8px 0 rgba(0,0,0,.2),0 16px 30px #09172933;transform:rotate(-3deg);transition:transform .55s,filter .45s}
+.carton:before,.carton:after{content:'';position:absolute;width:1.4rem;height:1.4rem;background:#e5ca9e88;top:-.08rem;right:-.05rem;clip-path:polygon(100% 0,0 0,100% 100%)}
+.carton:after{left:0;right:auto;transform:scaleX(-1)}
+.carton-lid{position:absolute;left:0;right:0;top:0;height:.9rem;border-bottom:1px solid #896b4c80;background:#f4ddb69b;transform-origin:top;transition:transform .6s}
+.carton-stamp{border:3px double #663e38;border-radius:.25rem;width:100%;min-height:5.8rem;display:flex;align-items:center;justify-content:center;gap:.55rem;padding:.5rem .45rem;color:#613833;background:repeating-linear-gradient(0deg,#8d61441c 0 2px,transparent 2px 7px);transform:rotate(-1deg);text-align:center;text-transform:uppercase}
+.carton-stamp .stamp-sign{font-size:1.55rem;border:2px solid #78483c;border-radius:50%;width:2.5rem;height:2.5rem;display:grid;place-items:center;flex-shrink:0}
+.carton-stamp .stamp-words{font:800 .74rem/1.65 'DM Sans',sans-serif;letter-spacing:.11em}
+.carton-stamp .stamp-words b{font-size:.81rem;letter-spacing:.1em}
+.carton-stamp .stamp-icon{font-size:.85rem}
+.carton-bottom{color:#634434;font:800 .53rem 'DM Sans',sans-serif;letter-spacing:.2em;margin-top:.5rem}
+.carton.unwrapped{transform:rotate(2deg) translateY(-3px);filter:brightness(1.07)}
+.carton.unwrapped .carton-lid{transform:rotateX(115deg)}
+/* Moonlit paper popups; nothing is auto-submitted */
+.dialog-open{overflow:hidden}.overlay[hidden]{display:none!important}
+.overlay{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:1rem}
+.overlay-scrim{position:absolute;inset:0;background:rgba(4,13,27,.85);backdrop-filter:blur(8px)}
+.overlay-card{position:relative;z-index:1;width:min(35rem,100%);max-height:min(90vh,850px);overflow:auto;padding:clamp(1.5rem,5vw,3rem);border:1px solid rgba(224,240,255,.4);border-radius:1.6rem;background:radial-gradient(circle at 50% 0%,rgba(212,229,253,.15),transparent 47%),linear-gradient(160deg,#28486a,#132945);box-shadow:0 30px 100px #02081699;animation:letter-in .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes letter-in{from{transform:translateY(28px) scale(.96);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.overlay-close{position:absolute;right:1rem;top:1rem;color:#f4f8ff;background:#dfefff14;border:1px solid #c5e0ff4d;border-radius:50%;width:2.35rem;height:2.35rem;font-size:1.7rem;line-height:1}
+.letter-seal{margin:.4rem auto 1.2rem;width:4.3rem;height:4.3rem;border-radius:50%;border:2px solid #d7e8fc;outline:1px dashed #b5cfe0;outline-offset:5px;display:grid;place-items:center;color:#e3cdec;font:400 2.2rem 'Playfair Display',serif}
+.overlay-kicker{text-align:center;color:#c9def6;text-transform:uppercase;letter-spacing:.2em;font-size:.65rem;font-weight:700}
+.overlay-card h2{text-align:center;font:400 clamp(2.2rem,6vw,3.5rem)/1.12 'Playfair Display',serif;letter-spacing:-.055em;margin:.8rem 0 1.2rem}
+.overlay-card h2 em{font-style:normal;color:#dfedff}
+.overlay-card p{color:#d6e2f1;line-height:1.8;text-align:center;font-size:.97rem}
+.overlay-card .sub-letter{font:italic 1.1rem 'Playfair Display',serif;color:#d7c4e8}
+.reveal-card{text-align:center}.reveal-card .btn{margin-top:.8rem}
+.wish-label{display:block;margin-top:1.3rem;margin-bottom:.55rem;color:#f0f6ff;font-size:.8rem;font-weight:700;letter-spacing:.07em}
+.wish-card textarea{display:block;width:100%;padding:1rem 1.1rem;border-radius:.9rem;border:1px solid #b9d7ee77;background:#0a1e37;color:#f4f8ff;font:1rem/1.65 'DM Sans',sans-serif;resize:vertical;outline:none}
+.wish-card textarea:focus{border-color:#e7f3ff;box-shadow:0 0 0 3px #a9cbe533}
+.wish-card .privacy-note{font-size:.72rem;text-align:left;color:#b9cfe5;line-height:1.55;margin-top:.8rem}
+.wish-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.wish-status{margin:1rem 0 0!important;min-height:1.2rem;font-size:.85rem!important;color:#e8f2ff!important}
+.photo-overlay-card{width:min(44rem,100%)}
+.photo-overlay-card h2{margin-bottom:.7rem}
+.photo-full{width:100%;max-height:65vh;object-fit:contain;border-radius:1.2rem;border:1px solid rgba(223,238,255,.22);background:#0e1b31;box-shadow:0 20px 55px #04101f66;margin-top:.6rem}
+.photo-overlay-card p{margin-top:1rem}
+@media(max-width:640px){.carton{width:17rem}.carton-stamp .stamp-words{font-size:.7rem}.carton-stamp .stamp-words b{font-size:.77rem}.overlay-card{padding:1.7rem 1.15rem}.wish-actions .btn{flex:1 1 10rem}.poem-box .poem-exact{font-size:1.08rem;line-height:1.9}.photo-full{max-height:50vh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.star,.feature-icon,.heart-drift,.confetti{animation:none!important}.overlay-card{animation:none}}
+
+
+.couple-art{position:absolute;z-index:3;width:min(22rem,96%);height:17rem;left:50%;bottom:5.5rem;transform:translateX(-50%);filter:drop-shadow(0 6px 12px #0007)}
+@media(max-width:950px) {.couple-art{bottom:5.7rem;height:15rem}}
+@media(max-width:640px){
+  .hero{display:flex;flex-direction:column;align-items:stretch;gap:0;padding-bottom:3rem}
+  .hero-copy{display:contents}
+  .hero .kicker{order:1;z-index:2}
+  .hero h1{order:2;z-index:2;margin-bottom:1.2rem}
+  .hero .scene-wrap{order:3;z-index:2;min-height:27rem;margin:0 0 1.4rem}
+  .scene{height:26.4rem}
+  .couple-art{height:14.5rem;bottom:4.9rem}
+  .hero .hero-sub{order:4;z-index:2}
+  .hero .carton{order:5;z-index:2;margin-top:1.1rem;margin-bottom:.4rem}
+  .hero .hero-actions{order:6;z-index:2;margin-top:1rem}
+  .hero .countdown{order:7;z-index:2;margin-top:1.5rem}
+}
+
+/* PHOTO EDITION — photographic lake panel and five interactive personal memories */
+.scene.photo-scene{width:min(37rem,100%);height:36rem;margin:0;isolation:isolate;border-radius:1.7rem;overflow:hidden;background:#0b1b35;border:1px solid rgba(219,234,255,.28);box-shadow:0 35px 110px #050d20a3,0 0 75px #bedfff13}
+.photo-scene:before{display:none}
+.photo-scene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:49% center;transition:opacity .35s ease;display:block;z-index:0}
+.scene-photo-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#06101f11 0%,transparent 35%,#07132400 60%,#071322b5 100%);z-index:1}
+.lake-toggle{position:absolute;z-index:4;top:1.1rem;right:1.1rem;border:1px solid #d6e9ff66;background:#0c1d37a8;color:#f3f8ff;padding:.7rem .9rem;border-radius:999px;font-size:.73rem;letter-spacing:.02em;backdrop-filter:blur(9px)}
+.lake-toggle:hover{background:#264363e8}
+.photo-scene .scene-caption{z-index:3;bottom:.9rem;left:1rem;right:1rem;padding:1rem 1.1rem;background:rgba(8,20,38,.68);line-height:1.7;box-shadow:0 3px 22px #0006}
+.photo-scene .scene-caption em{color:#f0e1f8;font-family:'Playfair Display',serif;font-size:1.09em}
+.photo-categories button{display:flex;gap:.75rem;align-items:center;padding:.5rem;min-height:6.3rem}
+.photo-categories button:last-child{grid-column:span 2}
+.photo-categories .interest-thumb{display:block;flex:0 0 4.7rem;width:4.7rem;height:5.2rem;object-fit:cover;object-position:50% 25%;border-radius:.7rem;box-shadow:0 5px 20px #0004}
+.photo-categories .interest-button-text{display:flex;flex:1;flex-direction:column;gap:.4rem;min-width:0;align-items:flex-start;text-align:left}
+.photo-categories .interest-button-text small{font-size:.65rem;color:#c4d9ef;font-weight:600;letter-spacing:.16em}
+.photo-categories .interest-button-text strong{font-size:.97rem;line-height:1.3;font-weight:600}
+.photo-feature{padding:.75rem;min-height:35rem;display:flex;align-items:stretch;justify-content:space-between;gap:0;text-align:left;background:linear-gradient(135deg,#2f5177,#172d4c);overflow:hidden}
+.feature-visual{position:relative;width:100%;height:25rem;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#506e90,#152a49 85%);border-radius:1.25rem;overflow:hidden}
+.feature-visual img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#13243d;filter:drop-shadow(0 10px 30px #07162d30)}
+.feature-number{position:absolute;z-index:2;right:.85rem;bottom:.85rem;border:1px solid #dfebff66;border-radius:999px;background:#07182cb8;backdrop-filter:blur(7px);padding:.45rem .7rem;color:#f1f7ff;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.feature-words{width:100%;padding:1.35rem 1.4rem 1.55rem;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem}
+.feature-eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#c3dbfa;font-weight:700}
+.feature-words h3{font-size:2rem;line-height:1.18;margin:.4rem 0 .2rem}
+.feature-words p{font-size:.93rem;line-height:1.7;color:#d8e5f4}
+.memory-photo{display:flex;align-items:center;gap:1rem;margin:1.6rem 0 0;padding:1rem;background:#e3f3ff12;border-radius:1.1rem;border:1px solid #d7eaff2b}
+.memory-photo img{width:9rem;height:7rem;object-fit:cover;object-position:center;border:4px solid #e4efff;border-radius:.35rem;transform:rotate(-3deg);box-shadow:0 7px 21px #08142655}
+.memory-photo figcaption{flex:1;font:italic 1rem/1.6 'Playfair Display',serif;color:#ebf3ff}
+@media(max-width:950px){.photo-scene{max-width:37rem;margin:auto}.photo-feature{min-height:0}}
+@media(max-width:640px){
+ .hero .scene-wrap{min-height:26rem;max-width:100%;width:100%;display:block}
+ .scene.photo-scene{width:100%;height:26rem}
+ .photo-scene>img{object-position:50% center}
+ .photo-scene .scene-caption{font-size:.82rem;left:.6rem;right:.6rem;bottom:.7rem}
+ .lake-toggle{font-size:.65rem;padding:.55rem .65rem;top:.65rem;right:.65rem}
+ .photo-categories{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .photo-categories button{min-height:5rem;padding:.4rem;gap:.45rem}
+ .photo-categories button:last-child{grid-column:span 2}
+ .photo-categories .interest-thumb{flex-basis:3.4rem;width:3.4rem;height:4.2rem}
+ .photo-categories .interest-button-text strong{font-size:.78rem}
+ .photo-categories .interest-button-text small{font-size:.53rem}
+ .feature-visual{height:20rem}
+ .feature-words{padding:1.3rem .85rem 1rem}
+ .feature-words h3{font-size:1.85rem}
+ .memory-photo{gap:.7rem;flex-direction:column;align-items:stretch}
+ .memory-photo img{width:100%;height:13rem;transform:none;object-position:center 35%}
+}
+
+</style>
+</head>
+<body>
+<div class="noise" aria-hidden="true"></div>
+<header class="topbar" id="top">
+  <div class="brand">neha <span>under the moon</span></div>
+  <div class="topmeta">
+    <div>25 november • a surprise</div>
+    <a class="pill" href="#reasons">why i like you</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="hero-copy">
+    <div class="kicker">for neha, on her birthday</div>
+    <h1>A moonlit little <em>birthday story</em><span class="tiny-heart">❤</span></h1>
+    <p class="hero-sub">You keep asking me why I like you, and maybe I still don't have a one-line answer. So I made something softer than a confession and more personal than a message.</p>
+    <div class="carton" id="carton" aria-label="A small cardboard gift box stamped: childish heart inside, handle with care">
+      <div class="carton-lid" aria-hidden="true"></div>
+      <div class="carton-stamp">
+        <span class="stamp-sign">♡</span>
+        <span class="stamp-words">childish heart inside<br><b>handle with care</b></span>
+        <span class="stamp-icon" aria-hidden="true">✦</span>
+      </div>
+      <div class="carton-bottom">OPEN WITH A SMILE · FOR NEHA</div>
+    </div>
+    <div class="hero-actions">
+      <button id="unwrap-btn" type="button" class="btn">unwrap the surprise ✦</button>
+      <a href="#chai-note" class="btn secondary">jump to chai &amp; shayari</a>
+    </div>
+    <div class="countdown"><span id="count-label">since 25 november 2003</span><strong id="count-value">loading…</strong><span id="count-note" class="count-note">all this time later, I still wanted to make your birthday feel special. ✦</span></div>
+  </div>
+
+  <div class="scene-wrap" id="scene-note">
+    <div class="scene-glow" aria-hidden="true"></div>
+    <figure class="scene photo-scene" aria-label="Moonlit lake portrait of two people sitting close together on the grass">
+      <img id="lake-photo" src="assets/moonlit-lake.webp" alt="A moonlit lake with two people sitting on grass; Neha rests her head on his shoulder while his arm is around her" fetchpriority="high" width="1500" height="1000">
+      <div class="scene-photo-shade" aria-hidden="true"></div>
+      <button id="lake-toggle" type="button" class="lake-toggle" aria-pressed="false">✧ see the original lake photo</button>
+      <figcaption class="scene-caption" id="lake-caption">That little feeling of <em>sukoon</em> — just the two of us, a moonlit lake, and the world slowing down.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section interests" id="your-world">
+  <div class="shell">
+    <div class="section-tag">01 / your little universe</div>
+    <h2>Things that instantly <em>remind me of you.</em></h2>
+    <p class="intro">Five little things I remember about you — now with the actual moments behind them. Tap a photo to turn the page.</p>
+    <div class="interests-grid">
+      <div class="interest-buttons photo-categories" role="group" aria-label="Little things Neha loves">
+        <button class="active" type="button" data-photo="assets/skating.webp" data-icon="🛼" data-title="Skating under the stars" data-copy="I love that you have this adventurous, playful side. And yes, I mean the actual inline skates!" data-alt="Neha rollerblading outside at night" data-num="01" aria-pressed="true"><img class="interest-thumb" src="assets/skating.webp" alt="" loading="lazy"><span class="interest-button-text"><small>🛼 / 01</small><strong>Inline skating</strong></span></button>
+        <button type="button" data-photo="assets/gym.webp" data-icon="💪" data-title="Showing up for yourself" data-copy="I admire how you look after your physical health and make time for your well-being." data-alt="Neha exercising on a gym machine" data-num="02" aria-pressed="false"><img class="interest-thumb" src="assets/gym.webp" alt="" loading="lazy"><span class="interest-button-text"><small>💪 / 02</small><strong>Gym &amp; health</strong></span></button>
+        <button type="button" data-photo="assets/baarish.webp" data-icon="🌧️" data-title="A little rain, a lot of smiles" data-copy="Rainy moments, warm chai, and conversations that never feel rushed." data-alt="Neha smiling in a casual rainy-day selfie" data-num="03" aria-pressed="false"><img class="interest-thumb" src="assets/baarish.webp" alt="" loading="lazy"><span class="interest-button-text"><small>🌧️ / 03</small><strong>Baarish</strong></span></button>
+        <button type="button" data-photo="assets/pets.webp" data-icon="🐾" data-title="Your soft spot for animals" data-copy="That photo of you holding a little black goat makes your love for animals feel even sweeter." data-alt="Neha smiling while holding a small black goat outdoors" data-num="04" aria-pressed="false"><img class="interest-thumb" src="assets/pets.webp" alt="" loading="lazy"><span class="interest-button-text"><small>🐾 / 04</small><strong>Pets</strong></span></button>
+        <button type="button" data-photo="assets/makeup.webp" data-icon="💄" data-title="All dressed up" data-copy="Your creativity, your style, and the little joy you find in getting ready — all very you." data-alt="Neha smiling in a festive red outfit with makeup and jewellery" data-num="05" aria-pressed="false"><img class="interest-thumb" src="assets/makeup.webp" alt="" loading="lazy"><span class="interest-button-text"><small>💄 / 05</small><strong>Makeup</strong></span></button>
+      </div>
+      <div class="feature-card photo-feature" aria-live="polite">
+        <div class="feature-visual">
+          <img id="interest-photo" src="assets/skating.webp" alt="Neha rollerblading outside at night" width="460" height="687">
+          <span id="interest-number" class="feature-number">01 / 05 — her little universe</span>
+        </div>
+        <div class="feature-words"><span class="feature-eyebrow">a detail I remember ✧</span><h3 id="interest-title">Skating under the stars</h3><p id="interest-copy">I love that you have this adventurous, playful side. And yes, I mean the actual inline skates!</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section trip" id="adventures">
+  <div class="shell">
+    <div class="section-tag">02 / a shared type of excitement</div>
+    <h2>Spontaneous visits to <em>exotic places.</em></h2>
+    <p class="intro">One thing I really like about us? We both enjoy the idea of sudden plans, lovely detours, and heading somewhere beautiful just because the mood felt right.</p>
+    <div class="trip-layout">
+      <div class="postcard">
+        <div class="section-tag">postcard from someday</div>
+        <h3>No rigid plans.<br><em>Just the right company.</em></h3>
+        <p>Maybe that's one of my favourite things — the thought that a simple "let's go" can turn into a memory worth keeping.</p>
+        <div class="stamps">
+          <div class="stamp">exotic places</div>
+          <div class="stamp">late plans</div>
+          <div class="stamp">views &amp; chai</div>
+        </div>
+        <figure class="memory-photo"><img src="assets/our-photo.webp" alt="A cheerful photo of Neha and her friend together during an outing" loading="lazy" width="1152" height="864"><figcaption>one real photo, and hopefully many more spontaneous memories ♡</figcaption></figure>
+      </div>
+      <div class="trip-panel">
+        <p>Tap below if you want this website to imagine one small spontaneous trip for us.</p>
+        <div class="trip-box" id="trip-box" aria-live="polite">
+          <span class="trip-caption">DESTINATION, UNKNOWN…</span>
+          <strong id="trip-name">Our next adventure?</strong>
+          <span class="trip-desc" id="trip-desc">Five real places. One spontaneous little plan.</span>
+          <a href="#adventures" class="trip-map" id="trip-map" hidden target="_blank" rel="noopener noreferrer">See this place on a map ↗</a>
+        </div>
+        <button class="btn btn-dark" type="button" id="trip-btn">suggest a spontaneous trip ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reasons" id="reasons">
+  <div class="shell">
+    <div class="section-tag">03 / answering your question</div>
+    <h2>So, why do I <em>like you?</em></h2>
+    <p class="intro">Not all at once. Not in some big speech. Just in small true things. Tap each one.</p>
+    <div class="reason-layout">
+      <div class="reason-aside">Some reasons are things I've noticed.<br>Some are the way you've made me feel.<em>And one is just a quiet moment that stayed with me.</em></div>
+      <div class="reason-list">
+        <details class="reason"><summary><span class="num">01</span><span class="ttl">How you care for your physical health</span><span class="plus">+</span></summary><div class="ans">I genuinely admire how you make an effort to take care of your physical health. It isn't about appearances for me — it's the way you care about your well-being and show up for yourself that I really appreciate. ♡</div></details>
+        <details class="reason"><summary><span class="num">02</span><span class="ttl">Rajputain Ho</span><span class="plus">+</span></summary><div class="ans">Bas… Rajputain ho. There is something about that familiar feeling that I quietly like. ♡</div></details>
+        <details class="reason"><summary><span class="num">03</span><span class="ttl">Your love for pets</span><span class="plus">+</span></summary><div class="ans">The way you care for animals is genuinely sweet. I especially love that photo of you holding the little black goat — such an adorable moment. 🐾</div></details>
+        <details class="reason"><summary><span class="num">04</span><span class="ttl">We both didn’t just let go</span><span class="plus">+</span></summary><div class="ans">We almost stopped talking, but we didn't just let things end there. We met, fought, shared our concerns, and tried to make things right between us. I really value that. ♡</div></details>
+        <details class="reason"><summary><span class="num">05</span><span class="ttl">That moment of sukoon</span><span class="plus">+</span></summary><div class="ans">When you leaned your head on my shoulder, I felt a kind of peace that is hard to explain. Just a simple moment, but it felt special to me — the kind of quiet sukoon that stays. ♡</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section poem" id="chai-note">
+  <div class="shell">
+    <div class="section-tag">04 / baarish aur chai</div>
+    <h2>One little <em>scene with you…</em></h2>
+    <p class="intro">Some feelings deserve exactly the words they arrived in.</p>
+    <div class="poem-box" lang="hi"><p class="poem-exact">उसने पूछा, क्या चाहिए?
+हमने कहा—
+फूल गुलाब का,
+नशा शराब का,
+और वक़्त आपका।
+थोड़ी सी बारिश,
+कुछ बातें बेहिसाब,
+और उन लम्हों में सुकून आपका। ❤️
+आप मेरे कंधे पे सर रख देना,
+मैं थाम लूँगा आपका हाथ।
+बैठकर दोनों बारिश निहारेंगे,
+एक गरम चाय के साथ।</p></div>
+    <div class="poem-footer">✦ the simplest things, with the right person</div>
+  </div>
+</section>
+
+<section class="section end" id="wish">
+  <div class="shell">
+    <div class="section-tag">05 / happy birthday, neha</div>
+    <h2>May this year feel a little more <em>beautifully yours.</em></h2>
+    <p>More lovely surprises. More pets to cuddle. More moonlit peace, spontaneous adventures, and moments that make you smile when you remember them later.</p>
+    <p>And if nothing else, I hope this website made you feel special today — because that was the point of it. ♡</p>
+    <button class="btn" id="wish-btn" type="button">make a birthday wish ✦</button>
+    <p id="wish-out" class="end-note" aria-live="polite"></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>made for neha ♡</span>
+  <a href="#top">back to the moon ↑</a>
+  <span>25 november • a little surprise</span>
+</footer>
+
+<!-- Real unwrapping experience: a birthday note inside the box. -->
+<div class="overlay" id="reveal-overlay" role="dialog" aria-modal="true" aria-labelledby="reveal-title" hidden>
+  <div class="overlay-scrim" data-dismiss="reveal"></div>
+  <div class="overlay-card reveal-card" role="document">
+    <button class="overlay-close" type="button" id="reveal-close" aria-label="Close surprise">×</button>
+    <div class="letter-seal">♡</div>
+    <div class="overlay-kicker">a little something, just for you</div>
+    <h2 id="reveal-title">Happy Birthday, <em>Neha.</em></h2>
+    <p>Some things are easier to show than explain. So here's a little universe made from things I remember about you, a question you keep asking me, and a quiet moment by the lake.</p>
+    <p class="sub-letter">No pressure. Just a smile, hopefully. ♡</p>
+    <button class="btn" id="start-surprise" type="button">let me show you ↗</button>
+  </div>
+</div>
+
+<!-- Wishes remain on the visitor's device unless they actively share them. -->
+<div class="overlay" id="wish-overlay" role="dialog" aria-modal="true" aria-labelledby="wish-title" hidden>
+  <div class="overlay-scrim" data-dismiss="wish"></div>
+  <div class="overlay-card wish-card" role="document">
+    <button class="overlay-close" type="button" id="wish-close" aria-label="Close wish">×</button>
+    <div class="letter-seal">☾</div>
+    <div class="overlay-kicker">a wish, just for you</div>
+    <h2 id="wish-title">Dear universe… <em>✦</em></h2>
+    <p>Close your eyes, think of something you really want, and write it here if you'd like.</p>
+    <label class="wish-label" for="wish-input">My birthday wish</label>
+    <textarea id="wish-input" maxlength="600" rows="4" placeholder="I wish for…"></textarea>
+    <p class="privacy-note">Private by default: this is saved only in your browser. Nothing is sent to anyone unless you choose to share it.</p>
+    <div class="wish-actions">
+      <button id="save-wish" type="button" class="btn">seal my wish ✦</button>
+      <button id="share-wish" type="button" class="btn secondary">share my wish ↗</button>
+    </div>
+    <p class="wish-status" id="wish-status" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<div class="overlay" id="photo-overlay" role="dialog" aria-modal="true" aria-labelledby="photo-title-modal" hidden>
+  <div class="overlay-scrim" data-dismiss="photo"></div>
+  <div class="overlay-card photo-overlay-card" role="document">
+    <button class="overlay-close" type="button" id="photo-close" aria-label="Close photo">×</button>
+    <div class="letter-seal">✦</div>
+    <div class="overlay-kicker" id="photo-kicker">a little reminder</div>
+    <h2 id="photo-title-modal">Reminder</h2>
+    <img id="photo-full" class="photo-full" src="assets/skating.webp" alt="">
+    <p id="photo-copy-modal">A little moment I remember about you.</p>
+  </div>
+</div>
+
+<script>
+const BIRTHDAY = new Date('2026-11-25T00:00:00+05:30');
+const BORN_ON = new Date('2003-11-25T00:00:00+05:30');
+// OPTIONAL: paste your Formspree URL here to receive wishes when Neha chooses 'share my wish'.
+// Example: https://formspree.io/f/your-form-id . Leave empty to use the device's share sheet.
+const WISH_FORM_ENDPOINT = '';
+const countLabel = document.getElementById('count-label');
+const countValue = document.getElementById('count-value');
+const countNote = document.getElementById('count-note');
+function updateCountdown(){
+  const now = new Date();
+  const sinceBirth = now - BORN_ON;
+  const totalDays = Math.floor(sinceBirth/86400000);
+  const hours = Math.floor((sinceBirth%86400000)/3600000);
+  const mins = Math.floor((sinceBirth%3600000)/60000);
+  countLabel.textContent = 'since 25 november 2003';
+  countValue.textContent = `${totalDays.toLocaleString()} days • ${hours}h ${mins}m`;
+  const untilBirthday = BIRTHDAY - now;
+  if(untilBirthday > 0){
+    const bdays = Math.floor(untilBirthday/86400000);
+    const bhours = Math.floor((untilBirthday%86400000)/3600000);
+    countNote.textContent = `and I’ve been waiting to make this birthday special ✦ ${bdays}d ${bhours}h left to go.`;
+  } else {
+    countNote.textContent = 'and today I just wanted to make your birthday feel special. ✦';
+  }
+}
+updateCountdown(); setInterval(updateCountdown,60000);
+
+// Compare the moonlit imagination with the real lake photo you shared.
+const originalLake = document.getElementById('lake-toggle');
+const lakePhoto = document.getElementById('lake-photo');
+const lakeCaption = document.getElementById('lake-caption');
+originalLake.addEventListener('click', () => {
+  const showingOriginal = originalLake.getAttribute('aria-pressed') !== 'true';
+  originalLake.setAttribute('aria-pressed', String(showingOriginal));
+  lakePhoto.src = showingOriginal ? 'assets/the-real-lake.webp' : 'assets/moonlit-lake.webp';
+  lakePhoto.alt = showingOriginal ? 'The original real-life photograph of the lake, water, hills and building on the shore' : 'A moonlit lake scene of the two of us sitting close on grass';
+  originalLake.textContent = showingOriginal ? '✧ back to our moonlit dream' : '✧ see the original lake photo';
+  lakeCaption.innerHTML = showingOriginal ? 'The real place behind this little dream. ♡' : 'That little feeling of <em>sukoon</em> — just the two of us, a moonlit lake, and the world slowing down.';
+});
+
+const starRoot = document.getElementById('stars');
+for(let i=0;i<38;i++){
+  const s = document.createElement('span');
+  s.className='star';
+  s.textContent = Math.random() > .72 ? '✦' : '·';
+  s.style.left = Math.random()*100+'%';
+  s.style.top = Math.random()*72+'%';
+  s.style.fontSize = (8 + Math.random()*18)+'px';
+  s.style.animationDelay = (-Math.random()*4)+'s';
+  starRoot.appendChild(s);
+}
+
+document.querySelectorAll('.interest-buttons button').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.interest-buttons button').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+  btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+  const photo=document.getElementById('interest-photo');
+  photo.src=btn.dataset.photo;
+  photo.alt=btn.dataset.alt;
+  document.getElementById('interest-number').textContent=btn.dataset.num+' / 05 — her little universe';
+  document.getElementById('interest-title').textContent=btn.dataset.title;
+  document.getElementById('interest-copy').textContent=btn.dataset.copy;
+  document.getElementById('photo-kicker').textContent = 'reminder ' + btn.dataset.num + ' / 05';
+  document.getElementById('photo-title-modal').textContent = btn.dataset.title;
+  document.getElementById('photo-full').src = btn.dataset.photo;
+  document.getElementById('photo-full').alt = btn.dataset.alt;
+  document.getElementById('photo-copy-modal').textContent = btn.dataset.copy;
+  showDialog(document.getElementById('photo-overlay'), btn, 'photo-close');
+}));
+const trips = [
+  {name:'Dasham Falls', note:'A waterfall getaway, with the sound of rushing water instead of notifications.'},
+  {name:'Palna Dam', note:'Water, open skies, and the pleasure of going somewhere quiet.'},
+  {name:'Ranchi Lake', note:'An easy lakeside pause for a long conversation and a cup of chai.'},
+  {name:'Netarhat Sunset Point', note:'A sky turning golden, with absolutely no hurry to leave.'},
+  {name:'Puri Beach', note:'Sea breeze, sandy feet, and one of those sudden plans worth keeping.'}
+];
+let tripIndex = -1;
+document.getElementById('trip-btn').addEventListener('click',()=>{
+  tripIndex = (tripIndex + 1) % trips.length;
+  const place = trips[tripIndex];
+  document.querySelector('.trip-caption').textContent = 'A LITTLE DESTINATION FOR SOMEDAY';
+  document.getElementById('trip-name').textContent = place.name;
+  document.getElementById('trip-desc').textContent = place.note;
+  const map = document.getElementById('trip-map');
+  map.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(place.name + ', India');
+  map.hidden = false;
+});
+
+
+function celebrate(){
+  const colors=['#edcda4','#ecaab0','#f8efe3','#b9c5dd'];
+  for(let i=0;i<90;i++){
+    const c=document.createElement('span');
+    c.className='confetti';
+    c.style.setProperty('--left',Math.random()*100+'vw');
+    c.style.setProperty('--color',colors[i%colors.length]);
+    c.style.setProperty('--fall',(3 + Math.random()*2)+'s');
+    c.style.setProperty('--turn',(Math.random()*360)+'deg');
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5500);
+  }
+}
+
+const $ = id => document.getElementById(id);
+const reveal = $('reveal-overlay');
+const wishDialog = $('wish-overlay');
+const photoDialog = $('photo-overlay');
+let lastDialogTrigger = null;
+function showDialog(dialog, trigger, focusId){
+  lastDialogTrigger=trigger;
+  dialog.hidden=false;
+  document.body.classList.add('dialog-open');
+  $(focusId).focus();
+}
+function hideDialog(dialog){
+  dialog.hidden=true;
+  document.body.classList.remove('dialog-open');
+  lastDialogTrigger?.focus();
+}
+$('unwrap-btn').addEventListener('click',()=>{
+  $('carton').classList.add('unwrapped');
+  showDialog(reveal, $('unwrap-btn'), 'reveal-close');
+});
+$('reveal-close').addEventListener('click',()=>hideDialog(reveal));
+$('start-surprise').addEventListener('click',()=>{
+  hideDialog(reveal);
+  document.querySelector('#your-world').scrollIntoView({behavior:'smooth'});
+});
+$('wish-btn').addEventListener('click',()=>{
+  $('wish-status').textContent='';
+  try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; } catch(e) { $('wish-input').value=''; }
+  showDialog(wishDialog,$('wish-btn'),'wish-input');
+});
+$('wish-close').addEventListener('click',()=>hideDialog(wishDialog));
+$('photo-close').addEventListener('click',()=>hideDialog(photoDialog));
+document.querySelectorAll('[data-dismiss]').forEach(scrim=>scrim.addEventListener('click',()=>hideDialog(scrim.closest('.overlay'))));
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape') {
+    if(!photoDialog.hidden) hideDialog(photoDialog);
+    else if(!wishDialog.hidden) hideDialog(wishDialog);
+    else if(!reveal.hidden) hideDialog(reveal);
+  }
+});
+function getWish(){return $('wish-input').value.trim();}
+$('save-wish').addEventListener('click',()=>{
+  const wish = getWish();
+  if(!wish){$('wish-status').textContent='Write a little wish first, or simply close your eyes and make one. ♡';return;}
+  try {
+    localStorage.setItem('neha-birthday-wish',wish);
+    $('wish-status').textContent='Sealed under this moon. Your wish is saved privately in this browser. ♡';
+  } catch(e) {
+    $('wish-status').textContent='Wish sealed for this moment. Your browser did not allow local saving.';
+  }
+  celebrate();
+  $('wish-out').textContent='May that wish find its way to you, one little day at a time. ♡';
+});
+$('share-wish').addEventListener('click', async()=>{
+  const wish=getWish();
+  if(!wish){$('wish-status').textContent='Write your wish before sharing it. ♡';return;}
+  const text='A birthday wish from Neha: '+wish;
+  // Nothing is transmitted automatically. The visitor has to choose Share.
+  if(WISH_FORM_ENDPOINT){
+    $('wish-status').textContent='Sharing your wish…';
+    try {
+      const response=await fetch(WISH_FORM_ENDPOINT,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({name:'Neha',wish})
+      });
+      if(!response.ok) throw new Error('Request failed');
+      $('wish-status').textContent='Your wish has been shared. ♡';
+    } catch(e) {
+      $('wish-status').textContent='It could not be sent. Your wish is still here; please try again.';
+    }
+    return;
+  }
+  if(navigator.share){
+    try {await navigator.share({title:'A birthday wish ✦',text});$('wish-status').textContent='Your share sheet is closed. ♡';}
+    catch(e){if(e.name!=='AbortError') $('wish-status').textContent='Could not open the share sheet. Try copying it instead.';}
+  } else {
+    try {await navigator.clipboard.writeText(text);$('wish-status').textContent='Copied! Paste it into a message if you decide to share it. ♡';}
+    catch(e){
+      const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';document.body.appendChild(ta);ta.select();
+      const copied=document.execCommand('copy');ta.remove();
+      $('wish-status').textContent=copied?'Copied! Paste it into a message if you decide to share it. ♡':'Select your wish and copy it to share.';
+    }
+  }
+});
+</script>
+</body>
+</html>
