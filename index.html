@@ -293,6 +293,25 @@ body{background:#0e1c36;color:var(--cream)}
  .memory-photo img{width:100%;height:13rem;transform:none;object-position:center 35%}
 }
 
+
+/* Optional background music control */
+#music-toggle {
+  position: fixed;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  right: 20px;
+  z-index: 80;
+  padding: 12px 18px;
+  border: 1px solid rgba(220, 235, 255, 0.5);
+  border-radius: 30px;
+  background: rgba(20, 40, 70, 0.85);
+  color: #f2f6ff;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+#music-toggle:hover { background: rgba(35, 65, 100, 0.94); }
+#music-toggle:focus-visible { outline: 2px solid #f2f6ff; outline-offset: 3px; }
+
 </style>
 </head>
 <body>
@@ -463,7 +482,7 @@ body{background:#0e1c36;color:var(--cream)}
   </div>
 </div>
 
-<!-- Wishes remain on the visitor's device unless they actively share them. -->
+<!-- Birthday wishes are sent to Ronit only after the visitor presses a send button. -->
 <div class="overlay" id="wish-overlay" role="dialog" aria-modal="true" aria-labelledby="wish-title" hidden>
   <div class="overlay-scrim" data-dismiss="wish"></div>
   <div class="overlay-card wish-card" role="document">
@@ -474,10 +493,10 @@ body{background:#0e1c36;color:var(--cream)}
     <p>Close your eyes, think of something you really want, and write it here if you'd like.</p>
     <label class="wish-label" for="wish-input">My birthday wish</label>
     <textarea id="wish-input" maxlength="600" rows="4" placeholder="I wish for…"></textarea>
-    <p class="privacy-note" id="wish-privacy">Choose how to seal your wish. <strong>Seal &amp; send to Ronit</strong> shares your words with the person who made this website, who can read and keep them. <strong>Seal privately</strong> saves them only on your device; I won't receive them.</p>
+    <p class="privacy-note" id="wish-privacy">Both buttons send your wish to Ronit through Formspree. He will be able to read and keep what you write. Your wish is not sent until you choose to seal and send it.</p>
     <div class="wish-actions">
       <button id="share-wish" type="button" class="btn">seal &amp; send to Ronit ✦</button>
-      <button id="save-wish" type="button" class="btn secondary">seal privately ✦ </button>
+      <button id="save-wish" type="button" class="btn secondary">seal ✦</button>
     </div>
     <p class="wish-status" id="wish-status" role="status" aria-live="polite"></p>
   </div>
@@ -495,11 +514,15 @@ body{background:#0e1c36;color:var(--cream)}
   </div>
 </div>
 
+<!-- Optional background music: upload song.mp3 inside assets/ -->
+<audio id="bg-music" src="assets/song.mp3" loop preload="none"></audio>
+<button id="music-toggle" type="button" aria-label="Play background music" aria-pressed="false">♫ Play music</button>
+
 <script>
 const BIRTHDAY = new Date('2026-11-25T00:00:00+05:30');
 const BORN_ON = new Date('2003-11-25T00:00:00+05:30');
 // Neha can choose to share a wish with the person who made the website via Formspree.
-// Private sealing never sends anything to Formspree.
+// Both wish buttons submit to Formspree when actively clicked.
 const WISH_FORM_ENDPOINT = 'https://formspree.io/f/mjywpzjq';
 const FORM_READY = /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(WISH_FORM_ENDPOINT);
 const countLabel = document.getElementById('count-label');
@@ -626,15 +649,10 @@ $('start-surprise').addEventListener('click',()=>{
 });
 $('wish-btn').addEventListener('click',()=>{
   $('wish-status').textContent='';
-  // The recipient sharing option is only offered when an actual receiving form exists.
-  $('share-wish').hidden = !FORM_READY;
-  
-$('wish-privacy').innerHTML = FORM_READY
-  ? 'You have two choices. <strong>Seal &amp; send to Ronit</strong> sends your wish to Ronit, who can read and keep it. <strong>Seal privately</strong> keeps your wish only on your device. Ronit will not receive it.'
-  : 'Only private sealing is available right now. Your wish will stay on your device and will not be sent to Ronit.';
-
-  try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; }
-  catch(e) { $('wish-input').value=''; }
+  $('share-wish').hidden = false;
+  $('save-wish').hidden = false;
+  $('wish-privacy').textContent = '';
+  $('wish-input').value = '';
   showDialog(wishDialog,$('wish-btn'),'wish-input');
 });
 $('wish-close').addEventListener('click',()=>hideDialog(wishDialog));
@@ -647,43 +665,29 @@ document.addEventListener('keydown',event=>{
     else if(!reveal.hidden) hideDialog(reveal);
   }
 });
-function getWish(){return $('wish-input').value.trim();}
-function completeWish(message){
-  hideDialog(wishDialog);
-  $('wish-out').textContent=message;
-  celebrate();
-}
-
+// BUTTON 1 (the first, filled button): completely independent Formspree submission.
+// Add or change a romantic quote in BUTTON 1's success message below.
 $('share-wish').addEventListener('click', async () => {
   if (!FORM_READY) {
-    $('wish-status').textContent =
-      'Sending has not been configured yet. Seal privately instead.';
+    $('wish-status').textContent = 'Sending is not configured. Please contact Ronit.';
     return;
   }
-
-  const wish = getWish();
-
+  const wish = $('wish-input').value.trim();
   if (!wish) {
     $('wish-status').textContent = 'Write a little wish first. ♡';
     return;
   }
-
-  const sendBtn = $('share-wish');
-  sendBtn.disabled = true;
-
-  const originalLabel = sendBtn.textContent;
-  sendBtn.textContent = 'sealing & sending…';
-
-  $('wish-status').textContent =
-    'Sending your wish to Ronit…';
-
+  const firstButton = $('share-wish');
+  const secondButton = $('save-wish');
+  const originalLabel = firstButton.textContent;
+  firstButton.disabled = true;
+  secondButton.disabled = true;
+  firstButton.textContent = 'sealing & sending…';
+  $('wish-status').textContent = 'Sending your wish to Ronit…';
   try {
     const response = await fetch(WISH_FORM_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify({
         name: 'Neha',
         wish,
@@ -691,48 +695,100 @@ $('share-wish').addEventListener('click', async () => {
         source: 'Neha Moonlit Birthday Website'
       })
     });
-
-    if (!response.ok) {
-      throw new Error('Form submission failed');
-    }
-
-    completeWish(
-      'Your wish has been sealed and shared with Ronit. ♡'
-    );
-
+    if (!response.ok) throw new Error('Form submission failed');
+    hideDialog(wishDialog);
+    // BUTTON 1 QUOTE: edit only this message; it will not affect Button 2.
+    $('wish-out').textContent = 'Your wish has been sealed and shared with Ronit, just as you chose. ♡';
+    celebrate();
   } catch (e) {
-    $('wish-status').textContent =
-      'Could not send your wish. Please try again or seal privately.';
+    $('wish-status').textContent = 'Could not confirm your wish was sent. Please try again.';
   } finally {
-    sendBtn.disabled = false;
-    sendBtn.textContent = originalLabel;
+    firstButton.textContent = originalLabel;
+    firstButton.disabled = false;
+    secondButton.disabled = false;
   }
 });
 
-$('share-wish').addEventListener('click', async()=>{
-  if(!FORM_READY){$('wish-status').textContent='Sending has not been configured yet. Seal privately instead.';return;}
-  const wish=getWish();
-  if(!wish){$('wish-status').textContent='Write a little wish first. ♡';return;}
-  const sendBtn=$('share-wish');
-  sendBtn.disabled=true;
-  const originalLabel=sendBtn.textContent;
-  sendBtn.textContent='sealing & sending…';
-  $('wish-status').textContent='Sending your wish to the person who made this page…';
+// BUTTON 2 (the second, outlined button): a separate Formspree submission.
+// Add or change a romantic quote in BUTTON 2's success message below.
+$('save-wish').addEventListener('click', async () => {
+  if (!FORM_READY) {
+    $('wish-status').textContent = 'Sending is not configured. Please contact Ronit.';
+    return;
+  }
+  const wish = $('wish-input').value.trim();
+  if (!wish) {
+    $('wish-status').textContent = 'Write a little wish first. ♡';
+    return;
+  }
+  const secondButton = $('save-wish');
+  const firstButton = $('share-wish');
+  const originalLabel = secondButton.textContent;
+  secondButton.disabled = true;
+  firstButton.disabled = true;
+  secondButton.textContent = 'sealing & sending…';
+  $('wish-status').textContent = 'Sending your wish to Ronit…';
   try {
-    const response=await fetch(WISH_FORM_ENDPOINT,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({name:'Neha',wish,subject:'Neha’s 23rd birthday wish',source:'Neha Moonlit Birthday Website'})
+    const response = await fetch(WISH_FORM_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({
+        name: 'Neha',
+        wish,
+        subject: 'Neha’s 23rd birthday wish',
+        source: 'Neha Moonlit Birthday Website'
+      })
     });
-    if(!response.ok) throw new Error('Form submission failed');
-    completeWish('Your wish has been sealed and shared with me, just as you chose. Thank you for trusting me with it. ♡');
-  } catch(e) {
-    $('wish-status').textContent='Could not save your wish online. It has not been confirmed as sent. Please try again or seal privately.';
+    if (!response.ok) throw new Error('Form submission failed');
+    hideDialog(wishDialog);
+    // BUTTON 2 QUOTE: edit only this message; it will not affect Button 1.
+    $('wish-out').textContent = 'Your wish has been sealed. ♡';
+    celebrate();
+  } catch (e) {
+    $('wish-status').textContent = 'Could not confirm your wish was sent. Please try again.';
   } finally {
-    sendBtn.disabled=false;
-    sendBtn.textContent=originalLabel;
+    secondButton.textContent = originalLabel;
+    secondButton.disabled = false;
+    firstButton.disabled = false;
   }
 });
+
+// Soft background music. Starts only when she opens the surprise or presses Play.
+const bgMusic = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+bgMusic.volume = 0.35;
+
+function updateMusicButton() {
+  const playing = !bgMusic.paused;
+  musicToggle.textContent = playing ? '♫ Pause music' : '♫ Play music';
+  musicToggle.setAttribute('aria-label', playing ? 'Pause background music' : 'Play background music');
+  musicToggle.setAttribute('aria-pressed', String(playing));
+}
+
+musicToggle.addEventListener('click', async () => {
+  if (bgMusic.paused) {
+    try {
+      await bgMusic.play();
+    } catch (error) {
+      // If the file is missing or the browser blocks playback, keep the Play button.
+      console.warn('Background music could not play:', error);
+    }
+  } else {
+    bgMusic.pause();
+  }
+  updateMusicButton();
+});
+
+bgMusic.addEventListener('play', updateMusicButton);
+bgMusic.addEventListener('pause', updateMusicButton);
+
+// Begin playing during the existing "let me show you" interaction.
+document.getElementById('start-surprise').addEventListener('click', () => {
+  if (bgMusic.paused) bgMusic.play().catch(error => {
+    console.warn('Background music could not play:', error);
+  });
+});
+
 </script>
 </body>
 </html>
