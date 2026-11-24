@@ -629,7 +629,7 @@ $('wish-btn').addEventListener('click',()=>{
   // The recipient sharing option is only offered when an actual receiving form exists.
   $('share-wish').hidden = !FORM_READY;
   $('wish-privacy').innerHTML = FORM_READY
-    ? 'You have two choices. <strong>Seal &amp; send to me</strong> sends your wish to the person who made this page, who can read and keep it in a private Formspree inbox. <strong>Seal privately</strong> keeps it only on your device, not with me.'
+    ? 'You have two choices. <strong>Seal &amp; send to Ronit</strong> sends your wish to the person who made this page, who can read and keep it in a private Formspree inbox. <strong>Seal privately</strong> keeps it only on your device, not with me.'
     : 'Only private sealing is available right now. Your wish is saved in this browser if allowed; it will not be sent to the person who made this website.';
   try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; }
   catch(e) { $('wish-input').value=''; }
