@@ -683,7 +683,7 @@ $('share-wish').addEventListener('click', async () => {
   firstButton.disabled = true;
   secondButton.disabled = true;
   firstButton.textContent = 'sealing & sending…';
-  $('wish-status').textContent = 'Sending your wish to Ronit…';
+  $('wish-status').textContent = '';
   try {
     const response = await fetch(WISH_FORM_ENDPOINT, {
       method: 'POST',
@@ -727,7 +727,7 @@ $('save-wish').addEventListener('click', async () => {
   secondButton.disabled = true;
   firstButton.disabled = true;
   secondButton.textContent = 'sealing & sending…';
-  $('wish-status').textContent = 'Sending your wish to Ronit…';
+  $('wish-status').textContent = '';
   try {
     const response = await fetch(WISH_FORM_ENDPOINT, {
       method: 'POST',
