@@ -477,7 +477,7 @@ body{background:#0e1c36;color:var(--cream)}
     <p class="privacy-note" id="wish-privacy">Choose how to seal your wish. <strong>Seal &amp; send to Ronit</strong> shares your words with the person who made this website, who can read and keep them. <strong>Seal privately</strong> saves them only on your device; I won't receive them.</p>
     <div class="wish-actions">
       <button id="share-wish" type="button" class="btn">seal &amp; send to Ronit ✦</button>
-      <button id="save-wish" type="button" class="btn secondary">seal privately ☾</button>
+      <button id="save-wish" type="button" class="btn secondary">seal privately </button>
     </div>
     <p class="wish-status" id="wish-status" role="status" aria-live="polite"></p>
   </div>
@@ -628,9 +628,11 @@ $('wish-btn').addEventListener('click',()=>{
   $('wish-status').textContent='';
   // The recipient sharing option is only offered when an actual receiving form exists.
   $('share-wish').hidden = !FORM_READY;
-  $('wish-privacy').innerHTML = FORM_READY
-    ? 'You have two choices. <strong>Seal &amp; send to me</strong> sends your wish to the person who made this page, who can read and keep it in a private Formspree inbox. <strong>Seal privately</strong> keeps it only on your device, not with me.'
-    : 'Only private sealing is available right now. Your wish is saved in this browser if allowed; it will not be sent to the person who made this website.';
+  
+$('wish-privacy').innerHTML = FORM_READY
+  ? 'You have two choices. <strong>Seal &amp; send to Ronit</strong> sends your wish to Ronit, who can read and keep it. <strong>Seal privately</strong> keeps your wish only on your device. Ronit will not receive it.'
+  : 'Only private sealing is available right now. Your wish will stay on your device and will not be sent to Ronit.';
+
   try { $('wish-input').value=localStorage.getItem('neha-birthday-wish') || ''; }
   catch(e) { $('wish-input').value=''; }
   showDialog(wishDialog,$('wish-btn'),'wish-input');
